@@ -12,7 +12,7 @@ export default function () {
             name: 'Strawberries',
             price: 5,
             code: 'GR1',
-            badge: {
+            token: {
               id: '3_1350',
               value: '3 for £13.50',
             },
@@ -26,7 +26,7 @@ export default function () {
             name: 'Coffee',
             price: 11.23,
             code: 'SR1',
-            badge: {
+            token: {
               id: 'multibuy',
               value: 'Multi-buy Discount',
             },
@@ -40,7 +40,7 @@ export default function () {
             name: 'Green Tea',
             price: 3.11,
             code: 'SR1',
-            badge: {
+            token: {
               id: 'multibuy',
               value: '2 for 1',
             },

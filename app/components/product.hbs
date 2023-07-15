@@ -2,7 +2,7 @@
   <figure class="relative">
     <img src="{{@product.img}}" class="w-full object-cover"/>
     <figcaption class="bg-teal-100 absolute right-0 top-0 mt-4 mr-4 rounded-lg p-2">
-      <p class="text-teal-900">{{@product.badge.value}}</p>
+      <p class="text-teal-900">{{@product.token.value}}</p>
     </figcaption>
   </figure>
   <div class="p-4 flex justify-between w-full">
@@ -11,13 +11,29 @@
       <p class="text-base lending-6 font-bold">{{@product.priceInPounds}} </p>
     </div>
     <div>
-      <button
-        type="button"
-        class="bg-violet-50 hover:bg-violet-700 hover:text-white bg-violet-50 text-violet-700 font-bold shadow-sm rounded-lg p-2"
-        {{on "click" this.addToCart}}
-      >
-        Add to cart
-      </button>
+      <ProductButton>
+        <div class="flex">
+          {{#if this.emptyCart}}
+            <button {{on "click" this.addToCart}}>
+              Add to cart
+            </button>
+          {{else}}
+            {{#if (eq this.quantity 1)}}
+            <button {{on "click" this.removeToCart}}>
+              <this.IconTrash />
+            </button>
+            {{else}}
+            <button {{on "click" this.removeToCart}}>
+              <this.IconMinus />
+            </button>
+            {{/if}}
+            <span class="pl-4 pr-4">{{this.quantity}}</span>
+            <button {{on "click" this.addToCart}}>
+              <this.IconPlus/>
+            </button>
+          {{/if}}
+        </div>
+      </ProductButton>
     </div>
   </div>
 </article>
