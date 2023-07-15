@@ -3,13 +3,17 @@
         <img src="images/logo.png" alt="Special FX"/>
     </figure>
 
-    <button class="bg-gray-50 shadow-sm p-2" type="button">
+    {{#if (gte this.unitsInCart 1)}}
+    <button class="bg-gray-50 text-violet-700 shadow-sm p-2 flex" type="button">
         <this.ShoppingCart />
-    </button>
-
-    <button class="bg-gray-50 shadow-sm p-2" type="button">
-        <span>{{this.unitsInCart}}</span>
-        <this.ShoppingCart />
+        <span class="px-4 font-bold">{{this.unitsInCart}}</span>
         <span>{{this.totalPayable}}</span>
     </button>
+    {{else}}        
+    <button class="bg-gray-50 shadow-sm p-2" type="button">
+        <this.ShoppingCart />
+    </button>
+    {{/if}}
+
+
 </header>

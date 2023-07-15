@@ -10,7 +10,7 @@ export default class CartServiceService extends Service {
     }
 
     getTotalPayable() {
-        return this.totalPayable;
+        return Math.max(0, this.totalPayable);
     }
 
     plusTotalPayable(price) {
@@ -21,7 +21,8 @@ export default class CartServiceService extends Service {
 
     decreceTotalPayable(price) {
         this.unitsInCart--
-        this.totalPayable = this.totalPayable - price
+        const actualPrice = this.totalPayable - price;
+        this.totalPayable = parseFloat(actualPrice.toFixed(2));
     }
 
     addUnitsInCart() {

@@ -15,6 +15,11 @@ export default class HeaderComponent extends Component {
   
   @computed('cartService.totalPayable')
   get totalPayable() {
-    return this.cartService.getTotalPayable();
+    let pounds = Intl.NumberFormat('en-GB', {
+      style: 'currency',
+      currency: 'GBP',
+    });
+
+    return pounds.format(this.cartService.getTotalPayable());
   }
 }
