@@ -1,14 +1,23 @@
-<div class="my-4 mx-auto p-5 border border-cyan-950 rounded-lg">
-  <p class="my-2">
-    <span>Product name: {{@product.name}}</span>
-    <span>Product price: {{@product.price}}</span>
-  </p>
-  <p class="my-2">In Cart: {{this.quantity}}</p>
-  <button
-    type="button"
-    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-    {{on "click" this.addToCart}}
-  >
-    Add to cart
-  </button>
-</div>
+<article class="border border-gray-100 shadow-sm rounded-lg">
+  <figure class="relative">
+    <img src="{{@product.img}}" class="w-full object-cover"/>
+    <figcaption class="bg-teal-100 absolute right-0 top-0 mt-4 mr-4 rounded-lg p-2">
+      <p class="text-teal-900">{{@product.badge.value}}</p>
+    </figcaption>
+  </figure>
+  <div class="p-4 flex justify-between w-full">
+    <div>
+      <h3 class="text-gray-800 text-xl lending-7 font-bold">{{@product.name}}</h3>
+      <p class="text-base lending-6 font-bold">{{@product.priceInPounds}} </p>
+    </div>
+    <div>
+      <button
+        type="button"
+        class="bg-violet-50 hover:bg-violet-700 hover:text-white bg-violet-50 text-violet-700 font-bold shadow-sm rounded-lg p-2"
+        {{on "click" this.addToCart}}
+      >
+        Add to cart
+      </button>
+    </div>
+  </div>
+</article>

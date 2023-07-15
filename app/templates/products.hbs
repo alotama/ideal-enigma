@@ -1,4 +1,16 @@
 {{page-title "Products"}}
+<nav class="container">
+    <ul>
+        <li>Groceries</li>
+        <li>Wine</li>
+        <li>Clothes</li>
+        <li>FX</li>
+    </ul>
+</nav>
+<h1 class="text-4xl lending-10 font-medium">Groceries</h1>
+<h2 class="text-xl leading-7 font-normal">Special FX offers only the finest organic produce.</h2>
 {{#each this.model as |product|}}
+<div class="mb-9">
 <Product @product={{product}} />
+</div>
 {{/each}}
