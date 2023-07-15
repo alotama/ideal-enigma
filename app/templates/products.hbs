@@ -11,8 +11,10 @@
     <h1 class="text-4xl lending-10 font-medium">Groceries</h1>
     <h2 class="text-xl leading-7 font-normal">Special FX offers only the finest organic produce.</h2>
 </section>
-{{#each this.model as |product|}}
-<section class="mb-9">
-    <Product @product={{product}} />
+<section class="columns-1 lg:columns-3">
+    {{#each this.model as |product|}}
+    <div class="mb-9">
+        <Product @product={{product}} />
+    </div>
+    {{/each}}
 </section>
-{{/each}}

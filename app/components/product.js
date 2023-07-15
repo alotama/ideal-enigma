@@ -23,7 +23,7 @@ export default class ProductComponent extends Component {
 
   @action
   addToCart() {
-    const price = this.args.product.price
+    const price = this.args.product.price;
     this.quantity++;
     this.cartService.plusTotalPayable(price);
     this.statusCart();
@@ -32,7 +32,7 @@ export default class ProductComponent extends Component {
   @action
   removeToCart() {
     if (this.quantity > 0) {
-      const price = this.args.product.price
+      const price = this.args.product.price;
       this.quantity--;
       this.cartService.decreceTotalPayable(price);
       this.statusCart();

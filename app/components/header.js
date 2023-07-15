@@ -7,19 +7,14 @@ export default class HeaderComponent extends Component {
   @service cartService;
 
   ShoppingCart = ShoppingCart;
-  
+
   @computed('cartService.unitsInCart')
   get unitsInCart() {
     return this.cartService.getUnitsInCart();
   }
-  
+
   @computed('cartService.totalPayable')
   get totalPayable() {
-    let pounds = Intl.NumberFormat('en-GB', {
-      style: 'currency',
-      currency: 'GBP',
-    });
-
-    return pounds.format(this.cartService.getTotalPayable());
+    return this.cartService.getTotalPayable();
   }
 }

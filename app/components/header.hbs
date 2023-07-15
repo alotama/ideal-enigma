@@ -1,19 +1,23 @@
-<header class="flex justify-between px-10 py-5">
-    <figure class="w-40 h-8">
-        <img src="images/logo.png" alt="Special FX"/>
-    </figure>
+<header class="px-10 py-5 shadow-md top-0 sticky bg-white z-50">
+    <section class="flex justify-between">
+        <figure class="w-40 h-8">
+            <img src="images/logo.png" alt="Special FX"/>
+        </figure>
 
-    {{#if (gte this.unitsInCart 1)}}
-    <button class="bg-gray-50 text-violet-700 shadow-sm p-2 flex" type="button">
-        <this.ShoppingCart />
-        <span class="px-4 font-bold">{{this.unitsInCart}}</span>
-        <span>{{this.totalPayable}}</span>
-    </button>
-    {{else}}        
-    <button class="bg-gray-50 shadow-sm p-2" type="button">
-        <this.ShoppingCart />
-    </button>
-    {{/if}}
-
-
+        {{#if (gte this.unitsInCart 1)}}
+        <button class="bg-gray-50 text-violet-700 shadow-sm p-2 flex" type="button">
+            <this.ShoppingCart />
+            <span class="px-4 font-bold">{{this.unitsInCart}}</span>
+            <span>{{number-to-pounds this.totalPayable}}</span>
+        </button>
+        {{else}}        
+        <button class="bg-gray-50 shadow-sm p-2" type="button">
+            <this.ShoppingCart />
+        </button>
+        {{/if}}
+    </section>
+    <nav class="w-full flex align-middle">
+        <LinkTo @route="index" class="hover:bg-gray-700 rounded-md px-3 py-2 text-sm font-medium">Home</LinkTo>
+        <LinkTo @route="products" class="hover:bg-gray-700 rounded-md px-3 py-2 text-sm font-medium">Products</LinkTo>
+    </nav>
 </header>
