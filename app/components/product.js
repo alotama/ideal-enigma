@@ -4,30 +4,39 @@ import { action } from '@ember/object';
 import Trash from '../components/icons/trash';
 import Plus from '../components/icons/plus';
 import Minus from '../components/icons/minus';
+import { inject as service } from '@ember/service';
 
 export default class ProductComponent extends Component {
+  @service cartService;
+
   @tracked quantity = 0;
-  @tracked emptyCart = true
+  @tracked emptyCart = true;
 
   @action
   statusCart() {
-    if(this.quantity > 0) {
-      return this.emptyCart = false
+    if (this.quantity > 0) {
+      this.emptyCart = false;
+    } else {
+      this.emptyCart = true;
     }
-
-    this.emptyCart = true
   }
 
   @action
   addToCart() {
+    const price = this.args.product.price
     this.quantity++;
-    this.statusCart()
+    this.cartService.plusTotalPayable(price);
+    this.statusCart();
   }
 
   @action
   removeToCart() {
-    this.quantity--
-    this.statusCart()
+    if (this.quantity > 0) {
+      const price = this.args.product.price
+      this.quantity--;
+      this.cartService.decreceTotalPayable(price);
+      this.statusCart();
+    }
   }
 
   IconTrash = Trash;
