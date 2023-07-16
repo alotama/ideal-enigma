@@ -2,9 +2,9 @@
 
 <h1>Shopping Cart</h1>
 
-<section class="columns-1 lg:columns-3">
+<section class="columns-1">
 {{#each this.cartService.itemList as |item|}}
-    <Product @product={{item}}/>
+    <Product @product={{item}} @productType="row"/>
 {{/each}}
 </section>
 

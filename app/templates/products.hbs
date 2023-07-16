@@ -14,7 +14,7 @@
 <section class="columns-1 lg:columns-3">
     {{#each this.model as |product|}}
     <div class="mb-9">
-        <Product @product={{product}} />
+        <Product @product={{product}} @productType="grid"/>
     </div>
     {{/each}}
 </section>

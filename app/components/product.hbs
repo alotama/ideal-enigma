@@ -1,40 +1,17 @@
-<article class="border border-gray-100 shadow-sm rounded-lg">
-  <figure class="relative">
-    <img src="{{@product.img}}" class="w-full object-cover"/>
-    <figcaption class="bg-teal-100 absolute right-0 top-0 mt-4 mr-4 rounded-lg p-2">
-      <p class="text-teal-900">{{@product.token.value}}</p>
-    </figcaption>
-  </figure>
-  <div class="p-4 flex justify-between w-full">
-    <div>
-      <h3 class="text-gray-800 text-xl lending-7 font-bold">{{@product.name}}</h3>
-      {{!-- Me gustaría poder usar numberToPounds, en camelCase en lugar de snake-case --}}
-      <p class="text-base lending-6 font-bold">{{number-to-pounds @product.price}} </p> 
-    </div>
-    <div>
-      <ProductButton>
-        <div class="flex">
-          {{#if (eq @product.count 0)}}
-            <button type="button" {{on "click" this.addToCart}}>
-              Add to cart
-            </button>
-          {{else}}
-            {{#if (eq @product.count 1)}}
-            <button type="button" {{on "click" this.removeToCart}}>
-              <this.IconTrash />
-            </button>
-            {{else}}
-            <button type="button" {{on "click" this.removeToCart}}>
-              <this.IconMinus />
-            </button>
-            {{/if}}
-            <span class="pl-4 pr-4">{{@product.count}}</span>
-            <button type="button" {{on "click" this.addToCart}}>
-              <this.IconPlus/>
-            </button>
-          {{/if}}
-        </div>
-      </ProductButton>
-    </div>
-  </div>
+<article class="{{if (eq @productType 'row') "flex"}} border border-gray-100 shadow-sm rounded-lg">
+  <Product::Image
+    @productType={{@productType}}
+    @src={{@product.img}}
+    @alt={{@product.name}}
+    @token={{if (eq @productType 'grid') @product.token.value ""}}
+  />
+  <Product::Detail
+    @productType={{@productType}}
+    @count={{@product.count}}
+    @token={{if (eq @productType 'row') @product.token.value ""}}
+    @name={{@product.name}}
+    @price={{@product.price}}
+    @addToCart={{this.addToCart}} 
+    @removeToCart={{this.removeToCart}}
+  />
 </article>

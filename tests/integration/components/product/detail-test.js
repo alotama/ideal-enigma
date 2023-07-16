@@ -3,22 +3,22 @@ import { setupRenderingTest } from 'kshop-app/tests/helpers';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
-module('Integration | Component | product-button', function (hooks) {
+module('Integration | Component | product/detail', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`<ProductButton />`);
+    await render(hbs`<Product::Detail />`);
 
     assert.dom(this.element).hasText('');
 
     // Template block usage:
     await render(hbs`
-      <ProductButton>
+      <Product::Detail>
         template block text
-      </ProductButton>
+      </Product::Detail>
     `);
 
     assert.dom(this.element).hasText('template block text');

@@ -8,18 +8,18 @@ export default class CartServiceService extends Service {
   @tracked subtotal = 0;
   @tracked discount = 0;
   @tracked totalPayable = 0;
-  @tracked SR_DISCOUNT = 0
-  @tracked GR_DISCOUNT = 0
-  @tracked CF_DISCOUNT = 0
+  @tracked SR_DISCOUNT = 0;
+  @tracked GR_DISCOUNT = 0;
+  @tracked CF_DISCOUNT = 0;
 
   getUnitsInCart() {
     return this.unitsInCart;
   }
 
   getTotalPayable() {
-    this.addPromotion()
+    this.addPromotion();
     const totalFinal = this.subtotal - this.discount;
-    this.totalPayable = totalFinal
+    this.totalPayable = totalFinal;
     return Math.max(0, this.totalPayable);
   }
 
@@ -27,36 +27,38 @@ export default class CartServiceService extends Service {
     const itemSR = this.itemList.find(
       (itemProduct) => itemProduct.code === 'SR1'
     );
-    if(itemSR) {
-      if(itemSR.count % 3 === 0) {
-        const discountPrice = 4.5
-        const totalDiscount = (itemSR.count * itemSR.price) - (itemSR.count * discountPrice)
-        this.SR_DISCOUNT = totalDiscount
+    if (itemSR) {
+      if (itemSR.count % 3 === 0) {
+        const discountPrice = 4.5;
+        const totalDiscount =
+          itemSR.count * itemSR.price - itemSR.count * discountPrice;
+        this.SR_DISCOUNT = totalDiscount;
       }
     }
     const itemGR = this.itemList.find(
       (itemProduct) => itemProduct.code === 'GR1'
     );
-    if(itemGR) {
-      if(itemGR.count % 2 === 0) {
-        const mountCharged = itemGR.count / 2
-        const mountPrice = itemGR.price * mountCharged
-        this.GR_DISCOUNT = mountPrice
+    if (itemGR) {
+      if (itemGR.count % 2 === 0) {
+        const mountCharged = itemGR.count / 2;
+        const mountPrice = itemGR.price * mountCharged;
+        this.GR_DISCOUNT = mountPrice;
       }
     }
     const itemCF = this.itemList.find(
       (itemProduct) => itemProduct.code === 'CF1'
     );
-    if(itemCF) {
+    if (itemCF) {
       if (itemCF.count >= 3) {
         const originalPrice = itemCF.price;
         const discountedPrice = originalPrice * (2 / 3);
-        const totalDiscount = (itemCF.count * originalPrice) - (itemCF.count * discountedPrice);
+        const totalDiscount =
+          itemCF.count * originalPrice - itemCF.count * discountedPrice;
         this.CF_DISCOUNT = totalDiscount;
       }
     }
 
-    this.discount = this.SR_DISCOUNT + this.GR_DISCOUNT + this.CF_DISCOUNT
+    this.discount = this.SR_DISCOUNT + this.GR_DISCOUNT + this.CF_DISCOUNT;
   }
 
   addToCart(item) {
@@ -70,17 +72,18 @@ export default class CartServiceService extends Service {
       this.itemList.pushObject(item);
     }
     this.unitsInCart++;
-    this.subtotal = this.subtotal + item.price
-    this.totalPayable = this.totalPayable + item.price
+    this.subtotal = this.subtotal + item.price;
+    this.totalPayable = this.totalPayable + item.price;
   }
 
+  // TO-DO: No hace bien la resta. No tiene en cuenta la condición de los descuentos
   removeToCart(item) {
-    item.count--
+    item.count--;
     if (item.count === 0) {
-      this.itemList.removeObject(item)
+      this.itemList.removeObject(item);
     }
     this.unitsInCart--;
-    this.subtotal = this.subtotal - item.price
-    this.totalPayable = this.totalPayable - item.price
+    this.subtotal = this.subtotal - item.price;
+    this.totalPayable = this.totalPayable - item.price;
   }
 }

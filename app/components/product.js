@@ -1,12 +1,10 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import Trash from '../components/icons/trash';
-import Plus from '../components/icons/plus';
-import Minus from '../components/icons/minus';
 import { inject as service } from '@ember/service';
 
 export default class ProductComponent extends Component {
+  @tracked productType;
   @service cartService;
   @tracked quantity = 0;
 
@@ -25,8 +23,4 @@ export default class ProductComponent extends Component {
       this.cartService.removeToCart(item);
     }
   }
-
-  IconTrash = Trash;
-  IconPlus = Plus;
-  IconMinus = Minus;
 }
