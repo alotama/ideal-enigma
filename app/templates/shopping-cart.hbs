@@ -1,0 +1,7 @@
+{{page-title "ShoppingCart"}}
+
+<h1>Shopping Cart</h1>
+
+{{#each this.cartService.itemList as |item|}}
+    <Product @product={{item}}/>
+{{/each}}

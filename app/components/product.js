@@ -8,34 +8,21 @@ import { inject as service } from '@ember/service';
 
 export default class ProductComponent extends Component {
   @service cartService;
-
   @tracked quantity = 0;
-  @tracked emptyCart = true;
-
-  @action
-  statusCart() {
-    if (this.quantity > 0) {
-      this.emptyCart = false;
-    } else {
-      this.emptyCart = true;
-    }
-  }
 
   @action
   addToCart() {
-    const price = this.args.product.price;
+    const item = this.args.product;
     this.quantity++;
-    this.cartService.plusTotalPayable(price);
-    this.statusCart();
+    this.cartService.addToCart(item);
   }
 
   @action
   removeToCart() {
-    if (this.quantity > 0) {
-      const price = this.args.product.price;
+    if (this.args.product.count > 0) {
+      const item = this.args.product;
       this.quantity--;
-      this.cartService.decreceTotalPayable(price);
-      this.statusCart();
+      this.cartService.removeToCart(item);
     }
   }
 

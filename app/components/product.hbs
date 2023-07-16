@@ -14,12 +14,12 @@
     <div>
       <ProductButton>
         <div class="flex">
-          {{#if this.emptyCart}}
+          {{#if (eq @product.count 0)}}
             <button type="button" {{on "click" this.addToCart}}>
               Add to cart
             </button>
           {{else}}
-            {{#if (eq this.quantity 1)}}
+            {{#if (eq @product.count 1)}}
             <button type="button" {{on "click" this.removeToCart}}>
               <this.IconTrash />
             </button>
@@ -28,7 +28,7 @@
               <this.IconMinus />
             </button>
             {{/if}}
-            <span class="pl-4 pr-4">{{this.quantity}}</span>
+            <span class="pl-4 pr-4">{{@product.count}}</span>
             <button type="button" {{on "click" this.addToCart}}>
               <this.IconPlus/>
             </button>
