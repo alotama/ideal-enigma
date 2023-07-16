@@ -17,31 +17,41 @@ export default class CartServiceService extends Service {
   }
 
   getTotalPayable() {
+    this.addPromotion()
     const totalFinal = this.subtotal - this.discount;
     this.totalPayable = totalFinal
     return Math.max(0, this.totalPayable);
   }
 
-  addPromotion(item) {
-    if(item.code === 'SR1') {
-      if(item.count % 3 === 0) {
+  addPromotion() {
+    const itemSR = this.itemList.find(
+      (itemProduct) => itemProduct.code === 'SR1'
+    );
+    if(itemSR) {
+      if(itemSR.count % 3 === 0) {
         const discountPrice = 4.5
-        const totalDiscount = (item.count * item.price) - (item.count * discountPrice)
+        const totalDiscount = (itemSR.count * itemSR.price) - (itemSR.count * discountPrice)
         this.SR_DISCOUNT = totalDiscount
       }
     }
-    if(item.code === 'GR1') {
-      if(item.count % 2 === 0) {
-        const mountCharged = item.count / 2
-        const mountPrice = item.price * mountCharged
+    const itemGR = this.itemList.find(
+      (itemProduct) => itemProduct.code === 'GR1'
+    );
+    if(itemGR) {
+      if(itemGR.count % 2 === 0) {
+        const mountCharged = itemGR.count / 2
+        const mountPrice = itemGR.price * mountCharged
         this.GR_DISCOUNT = mountPrice
       }
     }
-    if(item.code === 'CF1') {
-      if (item.count >= 3) {
-        const originalPrice = item.price;
+    const itemCF = this.itemList.find(
+      (itemProduct) => itemProduct.code === 'CF1'
+    );
+    if(itemCF) {
+      if (itemCF.count >= 3) {
+        const originalPrice = itemCF.price;
         const discountedPrice = originalPrice * (2 / 3);
-        const totalDiscount = (item.count * originalPrice) - (item.count * discountedPrice);
+        const totalDiscount = (itemCF.count * originalPrice) - (itemCF.count * discountedPrice);
         this.CF_DISCOUNT = totalDiscount;
       }
     }
@@ -60,7 +70,6 @@ export default class CartServiceService extends Service {
       this.itemList.pushObject(item);
     }
     this.unitsInCart++;
-    this.addPromotion(item)
     this.subtotal = this.subtotal + item.price
     this.totalPayable = this.totalPayable + item.price
   }
@@ -71,7 +80,7 @@ export default class CartServiceService extends Service {
       this.itemList.removeObject(item)
     }
     this.unitsInCart--;
-    const actualPrice = this.subtotal - item.price;
-    this.subtotal = parseFloat(actualPrice.toFixed(2));
+    this.subtotal = this.subtotal - item.price
+    this.totalPayable = this.totalPayable - item.price
   }
 }
