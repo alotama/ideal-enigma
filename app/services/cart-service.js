@@ -17,12 +17,7 @@ export default class CartServiceService extends Service {
   }
 
   getTotalPayable() {
-    console.log('totalPayable', {
-      subtotal: this.subtotal,
-      discount: this.discount
-    })
     const totalFinal = this.subtotal - this.discount;
-    console.log('totalFinal', totalFinal)
     this.totalPayable = totalFinal
     return Math.max(0, this.totalPayable);
   }
@@ -30,7 +25,6 @@ export default class CartServiceService extends Service {
   addPromotion(item) {
     if(item.code === 'SR1') {
       if(item.count % 3 === 0) {
-        console.log('SR_DISCOUNT >', this.SR_DISCOUNT)
         const discountPrice = 4.5
         const totalDiscount = (item.count * item.price) - (item.count * discountPrice)
         this.SR_DISCOUNT = totalDiscount
@@ -38,7 +32,6 @@ export default class CartServiceService extends Service {
     }
     if(item.code === 'GR1') {
       if(item.count % 2 === 0) {
-        console.log('GR_DISCOUNT >', this.GR_DISCOUNT)
         const mountCharged = item.count / 2
         const mountPrice = item.price * mountCharged
         this.GR_DISCOUNT = mountPrice
