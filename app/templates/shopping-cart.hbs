@@ -1,38 +1,18 @@
 {{page-title "ShoppingCart"}}
 
-<h1>Shopping Cart</h1>
+<section class="mb-9">
+    <h1 class="text-4xl leading-10 font-medium">Shopping Cart</h1>
+    <h2 class="text-xl leading-7 font-normal">You have {{this.cartService.unitsInCart}} in your cart.</h2>
+</section>
 
-<section class="columns-1">
+<div class="flex">
+<section class="mr-12">
 {{#each this.cartService.itemList as |item|}}
+<div class="mb-6">
     <Product @product={{item}} @productType="row"/>
+</div>
 {{/each}}
 </section>
 
-<section>
-    <div>
-        <h2 class="text-xl leading-7 font-bold">Summary</h2>
-    </div>
-    <div class="flex flex-wrap flex-col">
-        <div class="flex justify-between mb-7">
-            <p class="text-base leading-6 font-normal">Subtotal</p>
-            <p class="text-base leading-6 font-bold">{{number-to-pounds this.cartService.subtotal}}</p>
-        </div>
-        <div class="flex justify-between mb-7">
-            <p class="text-base leading-6 font-normal">Shopping Cart</p>
-            <p class="text-base leading-6 font-bold">{{number-to-pounds 0}}</p>
-        </div>
-        <div class="flex justify-between mb-7">
-            <p class="text-base leading-6 font-normal">Discount</p>
-            <p class="text-base leading-6 font-bold">{{number-to-pounds this.cartService.discount}}</p>
-        </div>
-        <div class="flex justify-between mb-7">
-            <p class="text-xl leading-7 font-normal">Total Payable</p>
-            <p class="text-xl leading-7 font-bold">{{number-to-pounds this.cartService.totalPayable}}</p>
-        </div>
-        <div class="flex justify-end">
-            <button type="button" class="bg-violet-700 p-2 text-white font-bold rounded-lg">
-                Go to Checkout
-            </button>
-        </div>
-    </div>
-</section>
+<Summary />
+</div>
