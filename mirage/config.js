@@ -11,7 +11,7 @@ export default function () {
             img: 'images/strawberries.png',
             name: 'Strawberries',
             price: 5,
-            code: '3_1350',
+            code: 'SR1',
             count: 0,
             token: {
               id: '3_1350',
@@ -26,7 +26,7 @@ export default function () {
             img: 'images/coffee.png',
             name: 'Coffee',
             price: 11.23,
-            code: 'multibuy',
+            code: 'CF1',
             count: 0,
             token: {
               id: 'multibuy',
@@ -41,7 +41,7 @@ export default function () {
             img: 'images/green-tea.png',
             name: 'Green Tea',
             price: 3.11,
-            code: '2_4_1',
+            code: 'GR1',
             count: 0,
             token: {
               id: '2_4_1',

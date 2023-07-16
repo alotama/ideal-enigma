@@ -3,16 +3,57 @@ import { tracked } from '@glimmer/tracking';
 import { A } from '@ember/array';
 
 export default class CartServiceService extends Service {
-  itemList = A([]);
+  @tracked itemList = A([]);
   @tracked unitsInCart = 0;
+  @tracked subtotal = 0;
+  @tracked discount = 0;
   @tracked totalPayable = 0;
+  @tracked SR_DISCOUNT = 0
+  @tracked GR_DISCOUNT = 0
+  @tracked CF_DISCOUNT = 0
 
   getUnitsInCart() {
     return this.unitsInCart;
   }
 
   getTotalPayable() {
+    console.log('totalPayable', {
+      subtotal: this.subtotal,
+      discount: this.discount
+    })
+    const totalFinal = this.subtotal - this.discount;
+    console.log('totalFinal', totalFinal)
+    this.totalPayable = totalFinal
     return Math.max(0, this.totalPayable);
+  }
+
+  addPromotion(item) {
+    if(item.code === 'SR1') {
+      if(item.count % 3 === 0) {
+        console.log('SR_DISCOUNT >', this.SR_DISCOUNT)
+        const discountPrice = 4.5
+        const totalDiscount = (item.count * item.price) - (item.count * discountPrice)
+        this.SR_DISCOUNT = totalDiscount
+      }
+    }
+    if(item.code === 'GR1') {
+      if(item.count % 2 === 0) {
+        console.log('GR_DISCOUNT >', this.GR_DISCOUNT)
+        const mountCharged = item.count / 2
+        const mountPrice = item.price * mountCharged
+        this.GR_DISCOUNT = mountPrice
+      }
+    }
+    if(item.code === 'CF1') {
+      if (item.count >= 3) {
+        const originalPrice = item.price;
+        const discountedPrice = originalPrice * (2 / 3);
+        const totalDiscount = (item.count * originalPrice) - (item.count * discountedPrice);
+        this.CF_DISCOUNT = totalDiscount;
+      }
+    }
+
+    this.discount = this.SR_DISCOUNT + this.GR_DISCOUNT + this.CF_DISCOUNT
   }
 
   addToCart(item) {
@@ -26,8 +67,9 @@ export default class CartServiceService extends Service {
       this.itemList.pushObject(item);
     }
     this.unitsInCart++;
-    const actualPrice = this.totalPayable + item.price;
-    this.totalPayable = parseFloat(actualPrice.toFixed(2));
+    this.addPromotion(item)
+    this.subtotal = this.subtotal + item.price
+    this.totalPayable = this.totalPayable + item.price
   }
 
   removeToCart(item) {
@@ -36,7 +78,7 @@ export default class CartServiceService extends Service {
       this.itemList.removeObject(item)
     }
     this.unitsInCart--;
-    const actualPrice = this.totalPayable - item.price;
-    this.totalPayable = parseFloat(actualPrice.toFixed(2));
+    const actualPrice = this.subtotal - item.price;
+    this.subtotal = parseFloat(actualPrice.toFixed(2));
   }
 }
