@@ -5,14 +5,13 @@
     <h2 class="text-xl leading-7 font-normal">You have {{this.cartService.unitsInCart}} in your cart.</h2>
 </section>
 
-<div class="flex">
-<section class="mr-12">
-{{#each this.cartService.itemList as |item|}}
-<div class="mb-6">
-    <Product @product={{item}} @productType="row"/>
-</div>
-{{/each}}
-</section>
-
-<Summary />
+<div class="md:flex">
+    <section class="md:mr-12">
+        {{#each this.cartService.itemList as |item|}}
+        <div class="mb-6">
+            <Product @product={{item}} @productType="row"/>
+        </div>
+        {{/each}}
+    </section>
+    <Summary />
 </div>
