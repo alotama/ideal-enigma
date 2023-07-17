@@ -1,5 +1,14 @@
 {{page-title "ShoppingCart"}}
 
+<LinkTo @route="products">
+    <button type="button" class="flex mb-16 text-base leading-6 font-normal">
+        <div class="mr-2">
+            <this.IconChevronLeft />
+        </div> 
+        Continue shopping
+    </button>
+</LinkTo>
+
 <section class="mb-9">
     <h1 class="text-4xl leading-10 font-medium">Shopping Cart</h1>
     <h2 class="text-xl leading-7 font-normal">You have {{this.cartService.unitsInCart}} in your cart.</h2>

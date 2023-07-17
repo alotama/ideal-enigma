@@ -4,12 +4,12 @@
             <img src="images/logo.png" alt="Special FX"/>
         </figure>
 
-        {{#if (gte this.unitsInCart 1)}}
+        {{#if (gte this.cartService.unitsInCart 1)}}
         <LinkTo @route="shopping-cart">
             <button class="bg-gray-50 text-violet-700 shadow-sm p-2 flex" type="button">
                 <this.ShoppingCart />
-                <span class="px-4 font-bold">{{this.unitsInCart}}</span>
-                <span>{{number-to-pounds this.totalPayable}}</span>
+                <span class="px-4 font-bold">{{this.cartService.unitsInCart}}</span>
+                <span>{{number-to-pounds this.cartService.totalPayable}}</span>
             </button>
         </LinkTo>
         {{else}}        
