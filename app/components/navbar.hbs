@@ -1,8 +1,7 @@
 <nav class="mb-16 mt-12">
   <ul class="flex">
-    <li class="mr-8 {{if (eq this.activeItem 'groceries') 'isActive'}} text-violet-700 font-bold text-base leading-6" {{action "changeActiveItem" "groceries"}}>Groceries</li>
-    <li class="mr-8 {{if (eq this.activeItem 'wine') 'isActive'}}" {{action "changeActiveItem" "wine"}}>Wine</li>
-    <li class="mr-8 {{if (eq this.activeItem 'clothes') 'isActive'}}" {{action "changeActiveItem" "clothes"}}>Clothes</li>
-    <li class="mr-8 {{if (eq this.activeItem 'fx') 'isActive'}}" {{action "changeActiveItem" "fx"}}>FX</li>
+    {{#each @navItem as |item|}}
+      <li class="mr-8 text-base leading-6 p-2 cursor-pointer {{if (eq this.activeItem item.item_id) 'text-violet-700 font-bold border-b-violet-700 border-b-2 border-b-violet-700'}}" {{action "changeActiveItem" item.item_id}}>{{item.value}}</li>
+    {{/each}}
   </ul>
 </nav>

@@ -4,19 +4,19 @@
             <img src="images/logo.png" alt="Special FX"/>
         </figure>
 
-        {{#if (gte this.cartService.unitsInCart 1)}}
         <LinkTo @route="shopping-cart">
+        {{#if (gte this.cartService.unitsInCart 1)}}
             <button class="bg-gray-50 text-violet-700 shadow-sm p-2 flex" type="button">
                 <this.ShoppingCart />
                 <span class="px-4 font-bold">{{this.cartService.unitsInCart}}</span>
                 <span>{{number-to-pounds this.cartService.totalPayable}}</span>
             </button>
-        </LinkTo>
-        {{else}}        
+        {{else}}
         <button class="bg-gray-50 shadow-sm p-2" type="button">
             <this.ShoppingCart />
         </button>
         {{/if}}
+        </LinkTo>
     </section>
     <nav class="w-full flex align-middle">
         <LinkTo @route="index" class="hover:bg-gray-700 rounded-md px-3 py-2 text-sm font-medium">Home</LinkTo>

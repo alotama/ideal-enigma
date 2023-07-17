@@ -48,46 +48,47 @@ export default function () {
               value: '2 for 1',
             },
           },
-        }
+        },
       ],
     };
   });
 
-  this.get('/navbar', function () {
+  // Funciona, pero no estoy entiendo como es que termina disponible en el this.model
+  this.get('/navbars', function () {
     return {
       data: [
         {
           type: 'navbar',
           id: '1',
           attributes: {
-            id: 'groceries',
-            value: 'Groceries'
+            item_id: 'groceries',
+            value: 'Groceries',
           },
         },
         {
           type: 'navbar',
           id: '2',
           attributes: {
-            id: 'wine',
-            value: 'Wine'
+            item_id: 'wine',
+            value: 'Wine',
           },
         },
         {
           type: 'navbar',
           id: '3',
           attributes: {
-            id: 'clothes',
-            value: 'Clothes'
+            item_id: 'clothes',
+            value: 'Clothes',
           },
         },
         {
           type: 'navbar',
           id: '4',
           attributes: {
-            id: 'fx',
-            value: 'FX'
+            item_id: 'fx',
+            value: 'FX',
           },
-        }
+        },
       ],
     };
   });
