@@ -1,6 +1,5 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'kshop-app/tests/helpers';
-import { set } from '@ember/object';
 
 const ProductTest = {
   img: 'images/strawberries.png',
