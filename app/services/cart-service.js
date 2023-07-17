@@ -86,4 +86,12 @@ export default class CartServiceService extends Service {
     this.subtotal = this.subtotal - item.price;
     this.getTotalPayable();
   }
+
+  emptyCart() {
+    this.itemList.clear();
+    this.unitsInCart = 0;
+    this.subtotal = 0;
+    this.discount = 0;
+    this.totalPayable = 0;
+  }
 }

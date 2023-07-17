@@ -7,7 +7,7 @@ export default class ProductsRoute extends Route {
   async model() {
     return {
       products: this.store.findAll('product'),
-      navbars: this.store.findAll('navbar')
-    }
+      navbars: this.store.findAll('navbar'),
+    };
   }
 }

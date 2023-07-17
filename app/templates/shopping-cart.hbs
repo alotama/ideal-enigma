@@ -14,13 +14,27 @@
     <h2 class="text-xl leading-7 font-normal">You have {{this.cartService.unitsInCart}} in your cart.</h2>
 </section>
 
-<div class="md:flex">
-    <section class="md:mr-12">
-        {{#each this.cartService.itemList as |item|}}
+<div class="lg:flex">
+    <section class="lg:mr-12">
+        {{#if (eq this.cartService.itemList.length 0) }}            
         <div class="mb-6">
-            <Product @product={{item}} @productType="row"/>
+            <CartPlaceholder />
         </div>
-        {{/each}}
+        {{else}}
+            {{#each this.cartService.itemList as |item|}}
+            <div class="mb-6">
+                <Product @product={{item}} @productType="row"/>
+            </div>
+            {{/each}}
+            <button 
+            class="mb-6 flex bg-violet-50 hover:bg-violet-700 hover:text-white bg-violet-50 text-violet-700 font-bold shadow-sm rounded-lg p-2"
+            type="button" {{on "click" this.emptyCart }}>
+                <div class="mr-2">
+                    <this.IconTrash />
+                </div>
+                Empty Cart
+            </button>
+        {{/if}}
     </section>
     <Summary />
 </div>
