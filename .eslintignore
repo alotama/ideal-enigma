@@ -25,3 +25,6 @@
 /yarn.lock.ember-try
 
 /mirage/mirage
+
+postcss.config.js
+tailwind.config.js

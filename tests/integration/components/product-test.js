@@ -28,24 +28,32 @@ module('Integration | Component | product', function (hooks) {
       },
       productType: 'grid',
     });
-    
-    await render(hbs`<Product @product={{this.product}} @productType={{this.productType}} />`);
-    
+
+    await render(
+      hbs`<Product @product={{this.product}} @productType={{this.productType}} />`
+    );
+
     assert.dom('[data-test-name]').hasText('Strawberries');
     assert.dom('[data-test-price]').hasText('£5.00');
     assert.dom('[data-test-token]').hasText('3 for £13.50');
-    
+
     assert.dom('[data-test="button-plus"]').hasText('Add to cart');
     await click(find('[data-test="button-plus"]'));
 
     // De esta forma no se esta testeando que el click del button ejecute addToCart
     // pero es la única forma que encuentro de simular el cambio en @product.count
-    this.set('product.count', "1")
-    assert.dom('[data-test="count-value"]').hasText('1', 'quantity is incremented after clicking add to cart');
+    this.set('product.count', '1');
+    assert
+      .dom('[data-test="count-value"]')
+      .hasText('1', 'quantity is incremented after clicking add to cart');
 
-    assert.dom('[data-test="button-trash"]').exists({ count: 1 }, 'El botón de quitar del carrito existe');
+    assert
+      .dom('[data-test="button-trash"]')
+      .exists({ count: 1 }, 'El botón de quitar del carrito existe');
     await click(find('[data-test="button-trash"]'));
-    this.set('product.count', "0")
-    assert.dom('[data-test="count-value"]').hasText('0', 'quantity is decremented after clicking remove from cart');
+    this.set('product.count', '0');
+    assert
+      .dom('[data-test="count-value"]')
+      .hasText('0', 'quantity is decremented after clicking remove from cart');
   });
 });
