@@ -19,12 +19,24 @@ module('Integration | Component | product/button', function (hooks) {
       />
     `);
 
-    assert.dom('[data-test="count-value"]').hasText('1', 'El conteo inicial es correcto');
+    assert
+      .dom('[data-test="count-value"]')
+      .hasText('1', 'El conteo inicial es correcto');
 
     await click('[data-test="button-plus"]');
-    assert.dom('[data-test="count-value"]').hasText('2', 'El conteo se incrementa después de hacer clic en "Add to Cart"');
+    assert
+      .dom('[data-test="count-value"]')
+      .hasText(
+        '2',
+        'El conteo se incrementa después de hacer clic en "Add to Cart"'
+      );
 
     await click('[data-test="button-trash"]');
-    assert.dom('[data-test="count-value"]').hasText('1', 'El conteo se decrementa después de hacer clic en "Remove from Cart"');
+    assert
+      .dom('[data-test="count-value"]')
+      .hasText(
+        '1',
+        'El conteo se decrementa después de hacer clic en "Remove from Cart"'
+      );
   });
 });

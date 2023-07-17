@@ -48,7 +48,46 @@ export default function () {
               value: '2 for 1',
             },
           },
+        }
+      ],
+    };
+  });
+
+  this.get('/navbar', function () {
+    return {
+      data: [
+        {
+          type: 'navbar',
+          id: '1',
+          attributes: {
+            id: 'groceries',
+            value: 'Groceries'
+          },
         },
+        {
+          type: 'navbar',
+          id: '2',
+          attributes: {
+            id: 'wine',
+            value: 'Wine'
+          },
+        },
+        {
+          type: 'navbar',
+          id: '3',
+          attributes: {
+            id: 'clothes',
+            value: 'Clothes'
+          },
+        },
+        {
+          type: 'navbar',
+          id: '4',
+          attributes: {
+            id: 'fx',
+            value: 'FX'
+          },
+        }
       ],
     };
   });

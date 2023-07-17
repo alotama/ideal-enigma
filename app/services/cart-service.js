@@ -73,7 +73,7 @@ export default class CartServiceService extends Service {
     }
     this.unitsInCart++;
     this.subtotal = this.subtotal + item.price;
-    this.getTotalPayable()
+    this.getTotalPayable();
   }
 
   // TO-DO: No hace bien la resta. No tiene en cuenta la condición de los descuentos
@@ -84,6 +84,6 @@ export default class CartServiceService extends Service {
     }
     this.unitsInCart--;
     this.subtotal = this.subtotal - item.price;
-    this.getTotalPayable()
+    this.getTotalPayable();
   }
 }

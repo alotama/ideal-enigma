@@ -5,7 +5,7 @@ import { inject as service } from '@ember/service';
 
 export default class ProductComponent extends Component {
   @service cartService;
-  
+
   @tracked productType;
   @tracked quantity = 0;
 
