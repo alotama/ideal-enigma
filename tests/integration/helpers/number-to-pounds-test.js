@@ -12,6 +12,6 @@ module('Integration | Helper | numberToPounds', function (hooks) {
 
     await render(hbs`{{number-to-pounds this.inputValue}}`);
 
-    assert.dom(this.element).hasText('1234');
+    assert.dom(this.element).hasText('£1,234.00');
   });
 });
