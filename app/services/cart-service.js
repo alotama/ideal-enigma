@@ -45,13 +45,12 @@ export default class CartServiceService extends Service {
       this.GR_DISCOUNT = mountPrice;
       break;
       case 'CF1':
-        const discountThreshold = 3; // Umbral para aplicar el descuento
-        const discountPercentage = 2 / 3; // Precio con descuento
-        let totalPrice = item.count * item.price; // Precio total sin descuento
-        let totalDiscount = 0; // Descuento total
+        const discountThreshold = 3;
+        const discountPercentage = 2 / 3;
+        let totalPrice = item.count * item.price;
+        let totalDiscount = 0;
     
         if (item.count >= discountThreshold) {
-          // Aplicar el descuento si la cantidad es mayor o igual al umbral
           const discountAmount = totalPrice * (1 - discountPercentage);
           totalPrice -= discountAmount;
           totalDiscount = discountAmount;
@@ -80,7 +79,6 @@ export default class CartServiceService extends Service {
     this.getTotalPayable();
   }
 
-  // TO-DO: No hace bien la resta. No tiene en cuenta la condición de los descuentos
   removeToCart(item) {
     item.count--;
     if (item.count === 0) {
