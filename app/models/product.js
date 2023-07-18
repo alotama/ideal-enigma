@@ -7,4 +7,5 @@ export default class ProductModel extends Model {
   @attr('string') token; // por qué funciona esto? solo se muestra en el FE cuando se llama badge, como en Mirage
   @attr('string') img;
   @attr('number') count;
+  @attr('object') promotions;
 }

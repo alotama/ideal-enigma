@@ -13,6 +13,7 @@ export default function () {
             price: 5,
             code: 'SR1',
             count: 0,
+            promotions: 0,
             token: {
               id: '3_1350',
               value: '3 for £13.50',
@@ -28,6 +29,7 @@ export default function () {
             price: 11.23,
             code: 'CF1',
             count: 0,
+            promotions: 0,
             token: {
               id: 'multibuy',
               value: 'Multi-buy Discount',
@@ -43,6 +45,7 @@ export default function () {
             price: 3.11,
             code: 'GR1',
             count: 0,
+            promotions: 0,
             token: {
               id: '2_4_1',
               value: '2 for 1',
