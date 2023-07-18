@@ -103,7 +103,7 @@ module('Unit | Service | cartService', function (hooks) {
       discount: 5,
       total: 5,
     };
-    service.subtotal = 100
+    service.subtotal = 100;
     service.getTotalPayable();
 
     assert.strictEqual(service.discount, 12.5, 'discount to be 25');
