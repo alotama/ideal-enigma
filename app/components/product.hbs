@@ -1,7 +1,7 @@
 <article 
 data-test="productCard"
 data-code={{@product.code}}
-class="{{if (eq @productType 'row') "flex"}} border border-gray-100 shadow-sm rounded-lg">
+class="{{if (eq @productType 'row') "lg:flex"}} border border-gray-100 shadow-sm rounded-lg">
   <Product::Image
     @productType={{@productType}}
     @src={{@product.img}}
