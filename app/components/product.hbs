@@ -1,4 +1,7 @@
-<article class="{{if (eq @productType 'row') "flex"}} border border-gray-100 shadow-sm rounded-lg">
+<article 
+data-test="productCard"
+data-code={{@product.code}}
+class="{{if (eq @productType 'row') "flex"}} border border-gray-100 shadow-sm rounded-lg">
   <Product::Image
     @productType={{@productType}}
     @src={{@product.img}}
@@ -12,6 +15,6 @@
     @name={{@product.name}}
     @price={{@product.price}}
     @addToCart={{this.addToCart}} 
-    @removeToCart={{this.removeToCart}}
+    @removeToCart={{if @modalHandler @modalHandler this.removeToCart}}
   />
 </article>

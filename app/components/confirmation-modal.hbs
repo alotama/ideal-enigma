@@ -1,17 +1,19 @@
-<div class="bg-black w-full h-full absolute top-0 left-0 opacity-80"/>
-<section class="text-center rounded-lg p-9 bg-white shadow-md absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+<div class="bg-black w-full h-full fixed top-0 left-0 opacity-80"/>
+<section class="text-center rounded-lg p-9 bg-white shadow-md fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
     <h2 class="mb-3 text-xl leading-7 font-bold">Confirm Removal</h2>
     <p class="mb-9 text-base leading-6 font-normal">Are you sure you want to remove this item from your cart?</p>
     <button
         class="mr-4 bg-violet-50 bg-violet-50 text-violet-700 font-bold shadow-sm rounded-lg p-2" 
         type="button"
+        {{on "click" @closeModal}}
     >
-    Cancel
+    Keep It
     </button>
     <button
         class="bg-violet-700 bg-violet-50 text-white font-bold shadow-sm rounded-lg p-2" 
         type="button"
+        {{on "click" @removeItem}}
     >
     Remove Item
     </button>
-</section>
+</section>  

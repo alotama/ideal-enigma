@@ -41,7 +41,7 @@ export default class CartServiceService extends Service {
       case 'GR1':
       const setOfTwo = Math.floor(item.count / 2);
       const quantity = item.count % 2
-      const mountPrice = (setOfTwo * item.price) + (quantity * item.price)
+      const mountPrice = item.count > 1 && (setOfTwo * item.price) + (quantity * item.price)
       this.GR_DISCOUNT = mountPrice;
       break;
       case 'CF1':

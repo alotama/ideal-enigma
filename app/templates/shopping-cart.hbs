@@ -23,7 +23,7 @@
         {{else}}
             {{#each this.cartService.itemList as |item|}}
             <div class="mb-6">
-                <Product @product={{item}} @productType="row"/>
+                <Product @product={{item}} @modalHandler={{this.openModal}} @productType="row"/>
             </div>
             {{/each}}
             <button 
@@ -38,3 +38,10 @@
     </section>
     <Summary />
 </div>
+
+{{#if this.isOpenModal.status }}
+    <ConfirmationModal
+        @closeModal={{this.closeModal}}
+        @removeItem={{this.removeItem}}
+     />
+{{/if}}
