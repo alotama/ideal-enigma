@@ -10,12 +10,12 @@ export default class CartServiceService extends Service {
   @tracked totalPayable = 0;
   @tracked SR_DISCOUNT = {
     discount: 0,
-    total: 0
-  }
+    total: 0,
+  };
   @tracked GR_DISCOUNT = 0;
   @tracked CF_DISCOUNT = {
     discount: 0,
-    total: 0
+    total: 0,
   };
 
   getUnitsInCart() {
@@ -23,9 +23,13 @@ export default class CartServiceService extends Service {
   }
 
   getTotalPayable() {
-    const discountTotal = Number(this.SR_DISCOUNT.discount) / 2 + Number(this.GR_DISCOUNT) + Number(this.CF_DISCOUNT.discount)
+    const discountTotal =
+      Number(this.SR_DISCOUNT.discount) / 2 +
+      Number(this.GR_DISCOUNT) +
+      Number(this.CF_DISCOUNT.discount);
     this.discount = discountTotal;
-    this.totalPayable = this.SR_DISCOUNT.total + this.GR_DISCOUNT + this.CF_DISCOUNT.total
+    this.totalPayable =
+      this.SR_DISCOUNT.total + this.GR_DISCOUNT + this.CF_DISCOUNT.total;
     return Math.max(0, this.totalPayable);
   }
 
@@ -34,22 +38,25 @@ export default class CartServiceService extends Service {
       case 'SR1':
         const discountedSR1 = 4.5;
         const remainder = item.count % 3;
-        const discountedQuantity = item.count - remainder; 
-        this.SR_DISCOUNT.total = (discountedQuantity / 3) * (3 * discountedSR1) + (remainder * item.price); 
+        const discountedQuantity = item.count - remainder;
+        this.SR_DISCOUNT.total =
+          (discountedQuantity / 3) * (3 * discountedSR1) +
+          remainder * item.price;
         this.SR_DISCOUNT.discount = discountedQuantity;
-      break;
+        break;
       case 'GR1':
-      const setOfTwo = Math.floor(item.count / 2);
-      const quantity = item.count % 2
-      const mountPrice = item.count > 1 && (setOfTwo * item.price) + (quantity * item.price)
-      this.GR_DISCOUNT = mountPrice;
-      break;
+        const setOfTwo = Math.floor(item.count / 2);
+        const quantity = item.count % 2;
+        const mountPrice =
+          item.count > 1 && setOfTwo * item.price + quantity * item.price;
+        this.GR_DISCOUNT = mountPrice;
+        break;
       case 'CF1':
         const discountThreshold = 3;
         const discountPercentage = 2 / 3;
         let totalPrice = item.count * item.price;
         let totalDiscount = 0;
-    
+
         if (item.count >= discountThreshold) {
           const discountAmount = totalPrice * (1 - discountPercentage);
           totalPrice -= discountAmount;
@@ -57,7 +64,7 @@ export default class CartServiceService extends Service {
         }
         this.CF_DISCOUNT.discount = totalDiscount;
         this.CF_DISCOUNT.total = totalPrice;
-      break;
+        break;
       default:
         break;
     }
@@ -91,7 +98,7 @@ export default class CartServiceService extends Service {
   }
 
   emptyCart() {
-    this.itemList.forEach(item => item.count = 0)
+    this.itemList.forEach((item) => (item.count = 0));
     this.itemList.clear();
     this.unitsInCart = 0;
     this.subtotal = 0;

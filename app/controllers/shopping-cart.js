@@ -9,51 +9,55 @@ export default class ShoppingCartController extends Controller {
   @service cartService;
   @tracked isOpenModal = {
     status: false,
-    target: ""
-  }
+    target: '',
+  };
 
   IconChevronLeft = ChevronLeft;
   IconTrash = Trash;
 
   @action
   emptyCart() {
-      this.cartService.emptyCart()
+    this.cartService.emptyCart();
   }
 
   @action
   closeModal() {
-    this.isOpenModal = !this.isOpenModal
+    this.isOpenModal = !this.isOpenModal;
   }
 
   @action
   removeItem() {
-    const item = this.isOpenModal.target
+    const item = this.isOpenModal.target;
     if (item.count === 0) {
       this.cartService.itemList.removeObject(item);
       this.cartService.addPromotion(item);
       this.cartService.getTotalPayable();
       this.isOpenModal = {
         status: !this.isOpenModal.status,
-        target: item
-      }
+        target: item,
+      };
     }
   }
 
   @action
   openModal(event) {
-    const productCard = event.currentTarget.closest('[data-test="productCard"]')
-    const productCode = productCard.attributes["data-code"].nodeValue
-    const item = this.cartService.itemList.find((itemProduct) => itemProduct.code === productCode)
-    item.count--
-    this.cartService.unitsInCart--
+    const productCard = event.currentTarget.closest(
+      '[data-test="productCard"]'
+    );
+    const productCode = productCard.attributes['data-code'].nodeValue;
+    const item = this.cartService.itemList.find(
+      (itemProduct) => itemProduct.code === productCode
+    );
+    item.count--;
+    this.cartService.unitsInCart--;
     this.cartService.subtotal = this.cartService.subtotal - item.price;
     this.cartService.addPromotion(item);
     this.cartService.getTotalPayable();
-    if(item.count === 0){
+    if (item.count === 0) {
       this.isOpenModal = {
         status: !this.isOpenModal.status,
-        target: item
-      }
+        target: item,
+      };
     }
   }
 }
