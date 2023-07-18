@@ -23,8 +23,14 @@ export default class CartServiceService extends Service {
   }
 
   getTotalPayable() {
-    const discountTotal = parseInt(this.SR_DISCOUNT.discount) + parseInt(this.GR_DISCOUNT) + parseInt(this.CF_DISCOUNT.discount)
+    const discountTotal = Number(this.SR_DISCOUNT.discount) / 2 + Number(this.GR_DISCOUNT) + Number(this.CF_DISCOUNT.discount)
     this.discount = discountTotal;
+    console.log({
+      discount: this.discount,
+      SR_DISCOUNT: this.SR_DISCOUNT.discount / 2,
+      GR_DISCOUNT: this.GR_DISCOUNT,
+      CF_DISCOUNT: this.CF_DISCOUNT.discount
+    })
     this.totalPayable = this.SR_DISCOUNT.total + this.GR_DISCOUNT + this.CF_DISCOUNT.total
     return Math.max(0, this.totalPayable);
   }
@@ -32,12 +38,12 @@ export default class CartServiceService extends Service {
   addPromotion(item) {
     switch (item.code) {
       case 'SR1':
-        const basePrice = 5;
         const discountedSR1 = 4.5;
         const remainder = item.count % 3;
         const discountedQuantity = item.count - remainder; 
-        this.SR_DISCOUNT.total = (discountedQuantity / 3) * (3 * discountedSR1) + (remainder * basePrice); 
-        this.SR_DISCOUNT.discount = discountedQuantity.toFixed(2);
+        this.SR_DISCOUNT.total = (discountedQuantity / 3) * (3 * discountedSR1) + (remainder * item.price); 
+        console.log('discountedQuantity >', item.price * item.count - (discountedQuantity / 3) * (3 * discountedSR1))
+        this.SR_DISCOUNT.discount = discountedQuantity;
       break;
       case 'GR1':
       const setOfTwo = Math.floor(item.count / 2);
