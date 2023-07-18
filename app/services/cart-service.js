@@ -8,57 +8,67 @@ export default class CartServiceService extends Service {
   @tracked subtotal = 0;
   @tracked discount = 0;
   @tracked totalPayable = 0;
-  @tracked SR_DISCOUNT = 0;
+  @tracked SR_DISCOUNT = {
+    discount: 0,
+    total: 0
+  }
   @tracked GR_DISCOUNT = 0;
-  @tracked CF_DISCOUNT = 0;
+  @tracked CF_DISCOUNT = {
+    discount: 0,
+    total: 0
+  };
 
   getUnitsInCart() {
     return this.unitsInCart;
   }
 
   getTotalPayable() {
-    this.addPromotion();
-    const totalFinal = this.subtotal - this.discount;
-    this.totalPayable = totalFinal;
+    const discountTotal = Number(this.SR_DISCOUNT.discount) / 2 + Number(this.GR_DISCOUNT) + Number(this.CF_DISCOUNT.discount)
+    this.discount = discountTotal;
+    console.log({
+      discount: this.discount,
+      SR_DISCOUNT: this.SR_DISCOUNT.discount / 2,
+      GR_DISCOUNT: this.GR_DISCOUNT,
+      CF_DISCOUNT: this.CF_DISCOUNT.discount
+    })
+    this.totalPayable = this.SR_DISCOUNT.total + this.GR_DISCOUNT + this.CF_DISCOUNT.total
     return Math.max(0, this.totalPayable);
   }
 
-  addPromotion() {
-    const itemSR = this.itemList.find(
-      (itemProduct) => itemProduct.code === 'SR1'
-    );
-    if (itemSR) {
-      if (itemSR.count % 3 === 0) {
-        const discountPrice = 4.5;
-        const totalDiscount =
-          itemSR.count * itemSR.price - itemSR.count * discountPrice;
-        this.SR_DISCOUNT = totalDiscount;
-      }
+  addPromotion(item) {
+    switch (item.code) {
+      case 'SR1':
+        const discountedSR1 = 4.5;
+        const remainder = item.count % 3;
+        const discountedQuantity = item.count - remainder; 
+        this.SR_DISCOUNT.total = (discountedQuantity / 3) * (3 * discountedSR1) + (remainder * item.price); 
+        console.log('discountedQuantity >', item.price * item.count - (discountedQuantity / 3) * (3 * discountedSR1))
+        this.SR_DISCOUNT.discount = discountedQuantity;
+      break;
+      case 'GR1':
+      const setOfTwo = Math.floor(item.count / 2);
+      const quantity = item.count % 2
+      const mountPrice = (setOfTwo * item.price) + (quantity * item.price)
+      this.GR_DISCOUNT = mountPrice;
+      break;
+      case 'CF1':
+        const discountThreshold = 3; // Umbral para aplicar el descuento
+        const discountPercentage = 2 / 3; // Precio con descuento
+        let totalPrice = item.count * item.price; // Precio total sin descuento
+        let totalDiscount = 0; // Descuento total
+    
+        if (item.count >= discountThreshold) {
+          // Aplicar el descuento si la cantidad es mayor o igual al umbral
+          const discountAmount = totalPrice * (1 - discountPercentage);
+          totalPrice -= discountAmount;
+          totalDiscount = discountAmount;
+        }
+        this.CF_DISCOUNT.discount = totalDiscount;
+        this.CF_DISCOUNT.total = totalPrice;
+      break;
+      default:
+        break;
     }
-    const itemGR = this.itemList.find(
-      (itemProduct) => itemProduct.code === 'GR1'
-    );
-    if (itemGR) {
-      if (itemGR.count % 2 === 0) {
-        const mountCharged = itemGR.count / 2;
-        const mountPrice = itemGR.price * mountCharged;
-        this.GR_DISCOUNT = mountPrice;
-      }
-    }
-    const itemCF = this.itemList.find(
-      (itemProduct) => itemProduct.code === 'CF1'
-    );
-    if (itemCF) {
-      if (itemCF.count >= 3) {
-        const originalPrice = itemCF.price;
-        const discountedPrice = originalPrice * (2 / 3);
-        const totalDiscount =
-          itemCF.count * originalPrice - itemCF.count * discountedPrice;
-        this.CF_DISCOUNT = totalDiscount;
-      }
-    }
-
-    this.discount = this.SR_DISCOUNT + this.GR_DISCOUNT + this.CF_DISCOUNT;
   }
 
   addToCart(item) {
@@ -73,6 +83,7 @@ export default class CartServiceService extends Service {
     }
     this.unitsInCart++;
     this.subtotal = this.subtotal + item.price;
+    this.addPromotion(item);
     this.getTotalPayable();
   }
 
@@ -84,6 +95,7 @@ export default class CartServiceService extends Service {
     }
     this.unitsInCart--;
     this.subtotal = this.subtotal - item.price;
+    this.addPromotion(item);
     this.getTotalPayable();
   }
 
