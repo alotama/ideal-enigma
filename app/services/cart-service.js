@@ -35,23 +35,25 @@ export default class CartServiceService extends Service {
 
   addPromotion(item) {
     switch (item.code) {
-      case 'SR1':
-        const discountedSR1 = 4.5;
+      case 'SR1': {
+        const discounted_sr1 = 4.5;
         const remainder = item.count % 3;
         const discountedQuantity = item.count - remainder;
         this.SR_DISCOUNT.total =
-          (discountedQuantity / 3) * (3 * discountedSR1) +
+          (discountedQuantity / 3) * (3 * discounted_sr1) +
           remainder * item.price;
         this.SR_DISCOUNT.discount = discountedQuantity;
         break;
-      case 'GR1':
+      }
+      case 'GR1': {
         const setOfTwo = Math.floor(item.count / 2);
         const quantity = item.count % 2;
         const mountPrice =
           item.count > 1 && setOfTwo * item.price + quantity * item.price;
         this.GR_DISCOUNT = mountPrice;
         break;
-      case 'CF1':
+      }
+      case 'CF1': {
         const discountThreshold = 3;
         const discountPercentage = 2 / 3;
         let totalPrice = item.count * item.price;
@@ -65,6 +67,7 @@ export default class CartServiceService extends Service {
         this.CF_DISCOUNT.discount = totalDiscount;
         this.CF_DISCOUNT.total = totalPrice;
         break;
+      }
       default:
         break;
     }

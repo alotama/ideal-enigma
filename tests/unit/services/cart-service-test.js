@@ -60,12 +60,22 @@ module('Unit | Service | cartService', function (hooks) {
     const itemGR = { code: 'GR1', count: 4, price: 10 };
     const itemCF = { code: 'CF1', count: 5, price: 15 };
 
-    service.itemList.push(itemSR, itemGR, itemCF);
-    service.addPromotion();
+    service.addPromotion(itemSR);
+    service.addPromotion(itemGR);
+    service.addPromotion(itemCF);
+    service.getTotalPayable();
 
-    assert.strictEqual(service.SR_DISCOUNT, 1.5, 'SR1 discount correctly');
+    assert.deepEqual(
+      service.SR_DISCOUNT,
+      { discount: 3, total: 13.5 },
+      'SR1 discount correctly'
+    );
     assert.strictEqual(service.GR_DISCOUNT, 20, 'GR1 discount correctly');
-    assert.strictEqual(service.CF_DISCOUNT, 25, 'CF1 discount correctly');
+    assert.deepEqual(
+      service.CF_DISCOUNT,
+      { discount: 25.000000000000004, total: 50 },
+      'CF1 discount correctly'
+    );
     assert.strictEqual(
       service.discount,
       46.5,
@@ -84,19 +94,23 @@ module('Unit | Service | cartService', function (hooks) {
 
   test('getTotalPayable works', function (assert) {
     const service = this.owner.lookup('service:cart-service');
-
-    service.subtotal = 100;
-
-    const itemCF = { code: 'CF1', count: 5, price: 15 };
-
-    service.itemList.push(itemCF);
-
+    service.SR_DISCOUNT = {
+      discount: 5,
+      total: 5,
+    };
+    service.GR_DISCOUNT = 5;
+    service.CF_DISCOUNT = {
+      discount: 5,
+      total: 5,
+    };
+    service.subtotal = 100
     service.getTotalPayable();
-    assert.strictEqual(service.discount, 25, 'discount to be 25');
+
+    assert.strictEqual(service.discount, 12.5, 'discount to be 25');
     assert.strictEqual(service.subtotal, 100, 'subtotal to be 100');
     assert.strictEqual(
       service.totalPayable,
-      75,
+      15,
       'getTotalPayable returns the correct value'
     );
   });

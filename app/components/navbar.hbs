@@ -1,7 +1,12 @@
 <nav class="mb-16 mt-12">
-  <ul class="flex">
+  <div class="flex">
     {{#each @navItem as |item|}}
-      <li class="mr-8 text-base leading-6 p-2 cursor-pointer {{if (eq this.activeItem item.item_id) 'text-violet-700 font-bold border-b-violet-700 border-b-2 border-b-violet-700'}}" {{action "changeActiveItem" item.item_id}}>{{item.value}}</li>
+      <button
+      type="button" 
+      class="mr-8 text-base leading-6 p-2 cursor-pointer {{if (eq this.activeItem item.item_id) 'text-violet-700 font-bold border-b-violet-700 border-b-2 border-b-violet-700'}}" 
+      {{on "click" (fn this.changeActiveItem item.item_id)}}>
+        {{item.value}}
+      </button>
     {{/each}}
-  </ul>
+  </div>
 </nav>

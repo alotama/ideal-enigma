@@ -12,15 +12,10 @@ module('Integration | Component | cart-placeholder', function (hooks) {
 
     await render(hbs`<CartPlaceholder />`);
 
-    assert.dom(this.element).hasText('');
-
-    // Template block usage:
-    await render(hbs`
-      <CartPlaceholder>
-        template block text
-      </CartPlaceholder>
-    `);
-
-    assert.dom(this.element).hasText('template block text');
+    assert
+      .dom(this.element)
+      .hasText(
+        'Oops! Your cart is empty. Please go back to the product page and add items. Browse Products'
+      );
   });
 });

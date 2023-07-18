@@ -20,7 +20,7 @@ module('Integration | Component | summary', function (hooks) {
       .hasText('£100.00', 'shows subtotal amount');
     assert
       .dom('[data-test="discount"]')
-      .hasText('£20.00', 'shows discount amount');
+      .hasText('-£20.00', 'shows discount amount');
     assert
       .dom('[data-test="total-payable"]')
       .hasText('£80.00', 'shows total payable amount');
