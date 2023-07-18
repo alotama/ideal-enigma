@@ -1,0 +1,20 @@
+<article 
+data-test="productCard"
+data-code={{@product.code}}
+class="{{if (eq @productType 'row') "flex"}} border border-gray-100 shadow-sm rounded-lg">
+  <Product::Image
+    @productType={{@productType}}
+    @src={{@product.img}}
+    @alt={{@product.name}}
+    @token={{if (eq @productType 'grid') @product.token.value ""}}
+  />
+  <Product::Detail
+    @productType={{@productType}}
+    @count={{@product.count}}
+    @token={{if (eq @productType 'row') @product.token.value ""}}
+    @name={{@product.name}}
+    @price={{@product.price}}
+    @addToCart={{this.addToCart}} 
+    @removeToCart={{if @modalHandler @modalHandler this.removeToCart}}
+  />
+</article>

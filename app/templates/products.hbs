@@ -1,0 +1,13 @@
+{{page-title "Products"}}
+<Navbar @navItem={{this.model.navbars}} />
+<section class="mb-8">
+    <h1 class="text-4xl lending-10 font-medium">Groceries</h1>
+    <h2 class="text-xl leading-7 font-normal">Special FX offers only the finest organic produce.</h2>
+</section>
+<section class="columns-1 lg:columns-3">
+    {{#each this.model.products as |product|}}
+    <div class="mb-9">
+        <Product @product={{product}} @productType="grid"/>
+    </div>
+    {{/each}}
+</section>

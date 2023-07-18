@@ -1,0 +1,8 @@
+<figure class="relative {{if (eq @productType 'row') 'p-4'}}">
+    <img src={{@src}} alt={{@alt}} class="w-full object-cover" />
+    {{#if @token}}    
+    <Product::Token @className="absolute right-0 top-0 mt-4 mr-4">
+    {{@token}}
+    </Product::Token>
+    {{/if}}
+</figure>

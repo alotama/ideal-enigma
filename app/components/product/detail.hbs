@@ -1,0 +1,17 @@
+<div class="flex w-full p-4 {{if (eq @productType 'row') 'flex-wrap' 'justify-between'}}">
+    <div class="{{if (eq @productType 'row') 'flex w-full justify-between relative'}}">
+        <div>
+        <h3 data-test-name class="text-gray-800 text-xl lending-7 font-bold">{{@name}}</h3>
+        {{#if @token}} 
+        <Product::Token @className="absolute">
+        {{@token}}
+        </Product::Token>
+        {{/if}}
+        </div>
+        {{!-- Me gustaría poder usar numberToPounds, en camelCase en lugar de snake-case --}}
+        <p data-test-price class="{{if (eq @productType 'row') 'text-xl leading-7 font-normal' 'text-base lending-6 font-bold'}}">{{number-to-pounds @price}} </p>
+    </div>
+    <div class="flex items-end">
+        <Product::Button @count={{@count}} @addToCart={{@addToCart}} @removeToCart={{@removeToCart}} />
+    </div>
+</div>

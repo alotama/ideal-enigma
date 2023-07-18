@@ -1,0 +1,58 @@
+<section class="flex-1 rounded-md overflow-hidden shadow-sm">
+    <div class="bg-gray-100 px-8 py-4">
+        <h2 class="text-xl leading-7 font-bold">Summary</h2>
+    </div>
+    <div class="flex p-8">
+        <div class="mr-4">
+            <button 
+            data-test="open-collapsable"
+            type="button" {{on "click" this.openCollapsable}}>
+                {{#if this.isCollpsed}} 
+                <this.IconChevronDown />                    
+                {{else}}
+                <this.IconChevronRight />
+                {{/if}}
+            </button>
+        </div>
+        <div class="w-full">
+            <div>
+                <div class="flex justify-between mb-7">
+                    <p class="text-base leading-6 font-normal">Subtotal</p>
+                    <p data-test="subtotal" class="text-base leading-6 font-bold">{{number-to-pounds this.cartService.subtotal}}</p>
+                </div>
+                {{#if this.isCollpsed}}                    
+                    {{#each this.cartService.itemList as |item|}}                    
+                    <div class="flex justify-between mb-7">
+                        <p 
+                        data-test="item-count-name"
+                        class="text-base leading-6 font-normal">{{item.count}}x {{item.name}}</p>
+                        <p
+                        data-test="item-price"
+                        class="text-base leading-6 font-bold">{{number-to-pounds (multiply item.count item.price)}}</p>
+                    </div>
+                    {{/each}}
+                {{/if}}
+                <div class="flex justify-between mb-7">
+                    <p class="text-base leading-6 font-normal">Shopping Cart</p>
+                    <p class="text-base leading-6 font-bold">{{number-to-pounds 0}}</p>
+                </div>
+                <div class="flex justify-between mb-7">
+                    <p class="text-base leading-6 font-normal">Discount</p>
+                    <p data-test="discount" class="text-base leading-6 font-bold">-{{number-to-pounds this.cartService.discount}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="p-8 pt-9">
+        <div class="flex justify-between mb-7">
+            <p class="text-xl leading-7 font-normal">Total Payable</p>
+            <p data-test="total-payable" class="text-xl leading-7 font-bold">{{number-to-pounds this.cartService.totalPayable}}</p>
+        </div>
+        <div class="flex justify-end">
+            <button type="button" class="bg-violet-700 p-2 text-white font-bold rounded-lg">
+                Go to Checkout
+            </button>
+        </div>
+    </div>
+</section>

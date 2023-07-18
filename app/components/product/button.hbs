@@ -1,0 +1,30 @@
+<div
+    class="bg-violet-50 hover:bg-violet-700 hover:text-white bg-violet-50 text-violet-700 font-bold shadow-sm rounded-lg p-2">
+    <div class="flex">
+        {{#if (eq @count 0)}}
+            <button 
+            data-test="button-plus"
+            type="button" {{on "click" @addToCart}}>
+                Add to cart
+            </button>
+        {{else}}
+            {{#if (eq @count 1)}}
+                <button 
+                data-test="button-trash"
+                type="button" {{on "click" @removeToCart}}>
+                    <this.IconTrash />
+                </button>
+            {{else}}
+                <button 
+                data-test="button-trash"
+                type="button" {{on "click" @removeToCart}}>
+                    <this.IconMinus />
+                </button>
+            {{/if}}
+            <span data-test="count-value" class="pl-4 pr-4">{{@count}}</span>
+            <button data-test="button-plus" type="button" {{on "click" @addToCart}}>
+                <this.IconPlus />
+            </button>
+        {{/if}}
+    </div>
+</div>

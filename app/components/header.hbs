@@ -1,0 +1,25 @@
+<header class="px-10 py-5 shadow-md top-0 sticky bg-white z-50">
+    <section class="flex justify-between mb-3">
+        <figure class="w-40 h-8">
+            <img src="images/logo.png" alt="Special FX"/>
+        </figure>
+
+        <LinkTo @route="shopping-cart">
+        {{#if (gte this.cartService.unitsInCart 1)}}
+            <button class="bg-gray-50 text-violet-700 shadow-sm p-2 flex" type="button">
+                <this.ShoppingCart />
+                <span class="px-4 font-bold">{{this.cartService.unitsInCart}}</span>
+                <span>{{number-to-pounds this.cartService.totalPayable}}</span>
+            </button>
+        {{else}}
+        <button class="bg-gray-50 shadow-sm p-2" type="button">
+            <this.ShoppingCart />
+        </button>
+        {{/if}}
+        </LinkTo>
+    </section>
+    <nav class="w-full flex align-middle">
+        <LinkTo @route="index" class="hover:text-violet-700 hover:bg-gray-50 rounded-md px-3 py-2 mr-3 text-sm font-medium">Home</LinkTo>
+        <LinkTo @route="products" class="hover:text-violet-700 hover:bg-gray-50 rounded-md px-3 py-2 text-sm font-medium">Products</LinkTo>
+    </nav>
+</header>

@@ -1,0 +1,47 @@
+{{page-title "ShoppingCart"}}
+
+<LinkTo @route="products">
+    <button type="button" class="flex mb-16 text-base leading-6 font-normal">
+        <div class="mr-2">
+            <this.IconChevronLeft />
+        </div> 
+        Continue shopping
+    </button>
+</LinkTo>
+
+<section class="mb-9">
+    <h1 class="text-4xl leading-10 font-medium">Shopping Cart</h1>
+    <h2 class="text-xl leading-7 font-normal">You have {{this.cartService.unitsInCart}} in your cart.</h2>
+</section>
+
+<div class="lg:flex">
+    <section class="lg:mr-12">
+        {{#if (eq this.cartService.itemList.length 0) }}            
+        <div class="mb-6">
+            <CartPlaceholder />
+        </div>
+        {{else}}
+            {{#each this.cartService.itemList as |item|}}
+            <div class="mb-6">
+                <Product @product={{item}} @modalHandler={{this.openModal}} @productType="row"/>
+            </div>
+            {{/each}}
+            <button 
+            class="mb-6 flex bg-violet-50 hover:bg-violet-700 hover:text-white bg-violet-50 text-violet-700 font-bold shadow-sm rounded-lg p-2"
+            type="button" {{on "click" this.emptyCart }}>
+                <div class="mr-2">
+                    <this.IconTrash />
+                </div>
+                Empty Cart
+            </button>
+        {{/if}}
+    </section>
+    <Summary />
+</div>
+
+{{#if this.isOpenModal.status }}
+    <ConfirmationModal
+        @closeModal={{this.closeModal}}
+        @removeItem={{this.removeItem}}
+     />
+{{/if}}
