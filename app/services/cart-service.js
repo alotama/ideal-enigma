@@ -25,12 +25,6 @@ export default class CartServiceService extends Service {
   getTotalPayable() {
     const discountTotal = Number(this.SR_DISCOUNT.discount) / 2 + Number(this.GR_DISCOUNT) + Number(this.CF_DISCOUNT.discount)
     this.discount = discountTotal;
-    console.log({
-      discount: this.discount,
-      SR_DISCOUNT: this.SR_DISCOUNT.discount / 2,
-      GR_DISCOUNT: this.GR_DISCOUNT,
-      CF_DISCOUNT: this.CF_DISCOUNT.discount
-    })
     this.totalPayable = this.SR_DISCOUNT.total + this.GR_DISCOUNT + this.CF_DISCOUNT.total
     return Math.max(0, this.totalPayable);
   }
@@ -42,7 +36,6 @@ export default class CartServiceService extends Service {
         const remainder = item.count % 3;
         const discountedQuantity = item.count - remainder; 
         this.SR_DISCOUNT.total = (discountedQuantity / 3) * (3 * discountedSR1) + (remainder * item.price); 
-        console.log('discountedQuantity >', item.price * item.count - (discountedQuantity / 3) * (3 * discountedSR1))
         this.SR_DISCOUNT.discount = discountedQuantity;
       break;
       case 'GR1':
@@ -100,6 +93,7 @@ export default class CartServiceService extends Service {
   }
 
   emptyCart() {
+    this.itemList.forEach(item => item.count = 0)
     this.itemList.clear();
     this.unitsInCart = 0;
     this.subtotal = 0;
