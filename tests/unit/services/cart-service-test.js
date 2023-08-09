@@ -67,7 +67,7 @@ module('Unit | Service | cartService', function (hooks) {
 
     assert.deepEqual(
       service.SR_DISCOUNT,
-      { discount: 3, total: 13.5 },
+      { discount: 1.5, total: 13.5 },
       'SR1 discount correctly'
     );
     assert.strictEqual(service.GR_DISCOUNT, 20, 'GR1 discount correctly');
@@ -106,7 +106,7 @@ module('Unit | Service | cartService', function (hooks) {
     service.subtotal = 100;
     service.getTotalPayable();
 
-    assert.strictEqual(service.discount, 12.5, 'discount to be 25');
+    assert.strictEqual(service.discount, 15, 'discount to be 15');
     assert.strictEqual(service.subtotal, 100, 'subtotal to be 100');
     assert.strictEqual(
       service.totalPayable,

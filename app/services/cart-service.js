@@ -24,7 +24,7 @@ export default class CartServiceService extends Service {
 
   getTotalPayable() {
     const discountTotal =
-      Number(this.SR_DISCOUNT.discount) / 2 +
+      Number(this.SR_DISCOUNT.discount) +
       Number(this.GR_DISCOUNT) +
       Number(this.CF_DISCOUNT.discount);
     this.discount = discountTotal;
@@ -37,19 +37,20 @@ export default class CartServiceService extends Service {
     switch (item.code) {
       case 'SR1': {
         const discounted_sr1 = 4.5;
-        const remainder = item.count % 3;
-        const discountedQuantity = item.count - remainder;
-        this.SR_DISCOUNT.total =
-          (discountedQuantity / 3) * (3 * discounted_sr1) +
-          remainder * item.price;
-        this.SR_DISCOUNT.discount = discountedQuantity;
+        let totalPrice = item.count * item.price;
+        let totalDiscount = 0;
+        if (item.count >= 3) {
+          totalPrice = item.count * discounted_sr1;
+          totalDiscount = (item.price - discounted_sr1) * item.count;
+        }
+        this.SR_DISCOUNT.total = totalPrice;
+        this.SR_DISCOUNT.discount = totalDiscount;
         break;
       }
       case 'GR1': {
         const setOfTwo = Math.floor(item.count / 2);
         const quantity = item.count % 2;
-        const mountPrice =
-          item.count > 1 && setOfTwo * item.price + quantity * item.price;
+        const mountPrice = setOfTwo * item.price + quantity * item.price;
         this.GR_DISCOUNT = mountPrice;
         break;
       }
