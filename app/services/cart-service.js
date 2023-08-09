@@ -37,21 +37,20 @@ export default class CartServiceService extends Service {
     switch (item.code) {
       case 'SR1': {
         const discounted_sr1 = 4.5;
-        let totalPrice = item.count * item.price
+        let totalPrice = item.count * item.price;
         let totalDiscount = 0;
         if (item.count >= 3) {
-          totalPrice = item.count * discounted_sr1
-          totalDiscount = (item.price - discounted_sr1) * item.count
+          totalPrice = item.count * discounted_sr1;
+          totalDiscount = (item.price - discounted_sr1) * item.count;
         }
-        this.SR_DISCOUNT.total = totalPrice
-        this.SR_DISCOUNT.discount = totalDiscount
+        this.SR_DISCOUNT.total = totalPrice;
+        this.SR_DISCOUNT.discount = totalDiscount;
         break;
       }
       case 'GR1': {
         const setOfTwo = Math.floor(item.count / 2);
         const quantity = item.count % 2;
-        const mountPrice =
-          setOfTwo * item.price + quantity * item.price;
+        const mountPrice = setOfTwo * item.price + quantity * item.price;
         this.GR_DISCOUNT = mountPrice;
         break;
       }
